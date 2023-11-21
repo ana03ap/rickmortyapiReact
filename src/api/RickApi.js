@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const RickApi = axios.create({
-    baseURL:"https://rickandmortyapi.com/api/character/"
+  baseURL: "https://rickandmortyapi.com/api/character/",
 });
 
-export default RickApi
+export default RickApi;

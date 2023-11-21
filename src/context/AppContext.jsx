@@ -1,13 +1,14 @@
-import React,{createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from "react";
  // se importa para poder hacer peticiones de http como get 
 // creo primero el contexto
 import RickApi from "../api/RickApi"
 // useefect es para que la funcion que se pase de parametro se ejecute despues de que se renderice un componente 
-export const AppContext = createContext()
+
 import useCountere from "../hook/useCountere"
+export const AppContext = createContext()
 export const AppContextProvider = ({children}) => {
   
-  const [isMobileDevice, setIsMobile] = useState(false);
+  //const [isMobileDevice, setIsMobile] = useState(false);
   const [data, setData] = useState([]);// creamos un estado para los datos
   const { counter, decrease, increase } = useCountere();
   const[search, setSearch]= useState("")
@@ -16,7 +17,7 @@ export const AppContextProvider = ({children}) => {
   const[species, setSpecies]= useState("")
   useEffect(() => {
     // funcion para poder hacer el fetch 
-    setIsMobile(isMobile);
+    //setIsMobile(isMobile);
     GetData();
 
      
@@ -26,9 +27,9 @@ export const AppContextProvider = ({children}) => {
 // vamos a hacer esta funcion de maner asyncronica 
   const GetData = async () => {
     try{
-      const {data}= await RickApi.get(`?page=${pageNumber}&name=${search}&status=${status}&gender=${gender}&species=${species}`);// esperar que se devuelva el get 
-      setData(Info.data.results)// pasarle lo que me devuelva el get al estado de datos 
-      setData(data.results)
+      const {data:{results}}= await RickApi.get(`?page=${counter}&name=${search}&status=${status}&gender=${gender}&species=${species}`);// esperar que se devuelva el get )
+        console.log(results)
+      setData(results)
     }catch(error){
       console.error("error fetching")
     }
@@ -62,7 +63,6 @@ export const AppContextProvider = ({children}) => {
         increase,
         decrease,
         counter,
-        isMobileDevice,
         setSearchParam,
         setStatusParam,
         setGenderParam,
